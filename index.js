@@ -26,7 +26,7 @@ class EklaseWrapper {
 		}
 	}
 
-	async initialize() {
+	async initialize(keepAlive = false) {
 		let data = await axios({
 			method: "POST",
 			url: `${urls.base}/`,
@@ -53,7 +53,7 @@ class EklaseWrapper {
 			Cookie: `${cookie.name}=${/\.ASPXAUTH.{1,99}=([^;]{1,9999})/.exec(aspxauth)[1]}`
 		}
 
-		setInterval(() => {
+		if (keepAlive) setInterval(() => {
 			axios.get(`${urls.base}/KeepAlive`, {
 				headers: this.headers
 			})
