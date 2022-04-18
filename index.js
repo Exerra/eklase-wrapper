@@ -83,11 +83,11 @@ class EklaseWrapper {
 					messageIds: ids
 				},
 				maxRedirects: 0
-			}))
+			})).data
 
 			let formattedMails = []
 
-			for (let mail of mails.data) {
+			for (let mail of mails) {
 				let formattedMail = await formatMail(mail)
 
 				formattedMails.push(formattedMail)
