@@ -175,8 +175,8 @@ class EklaseWrapper {
 		}
 	}
 
-	async getSchedule() {
-		let diary = await (await axios.get(`${urls.base}/Family/Diary?Date=10.04.2022`, { headers: this.headers })).data
+	async getSchedule(date = "") {
+		let diary = await (await axios.get(`${urls.base}/Family/Diary${date == "" ? "" : `?Date=${date}`}`, { headers: this.headers })).data
 
 		let temp = []
 
