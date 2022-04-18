@@ -173,6 +173,43 @@ class EklaseWrapper {
 			}
 		}
 	}
+
+	async getSchedule() {
+		let diary = await (await axios.get(`${urls.base}/Family/Diary`, { headers: this.headers })).data
+
+		let temp2 = [
+			[
+				{
+					name: "Literatura",
+					subject: "Test",
+					homework: "Thing"
+				}
+			]
+		]
+
+		let temp = []
+
+		const $ = cheerio.load(diary)
+		$(".lessons-table", "html").each(async (idx, el) => {
+			let tbody = $(el).find("tbody")
+			let temp2 = []
+			tbody.find("tr").each(async (idb, el2) => {
+				let subject = $(el2).find(".first-column").find("div").find(".title").text()
+
+				let subjArr = subject.split(" ").filter(e => e !== "").filter(e => e !== "\n")
+
+				let obj = {
+					subject: subjArr.join(" ").replace("\n", "")
+				}
+
+				temp2.push(obj)
+			})
+
+			temp.push(temp2)
+		})
+
+		return temp
+	}
 }
 
 module.exports = EklaseWrapper
