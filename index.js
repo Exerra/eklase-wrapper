@@ -176,7 +176,7 @@ class EklaseWrapper {
 	}
 
 	async getSchedule() {
-		let diary = await (await axios.get(`${urls.base}/Family/Diary`, { headers: this.headers })).data
+		let diary = await (await axios.get(`${urls.base}/Family/Diary?Date=10.04.2022`, { headers: this.headers })).data
 
 		let temp = []
 
@@ -187,6 +187,7 @@ class EklaseWrapper {
 			tbody.find("tr").each(async (idb, el2) => {
 				let name = $(el2).find(".first-column").find("div").find(".title").text().trim()
 				let subject = $(el2).find(".subject")
+				let score = $(el2).find(".score")
 				let homework = $(el2).find(".hometask")
 
 				let formatted = {
@@ -199,13 +200,20 @@ class EklaseWrapper {
 							edited: ""
 						},
 						attachments: []
-					}
+					},
+					score: ""
 				}
 
 				if (subject.text().trim() == "") {
 					formatted.subject = subject.text().trim()
 				} else {
 					formatted.subject = subject.find("div").find("p").text().trim()
+				}
+
+				if (score.text().trim() == "") {
+					formatted.score = score.text().trim()
+				} else {
+					formatted.score = score.find("span").text().trim()
 				}
 
 				if (homework.text().trim() != "") {
@@ -260,7 +268,8 @@ class EklaseWrapper {
 				let obj = {
 					name,
 					subject: formatted.subject,
-					homework: formatted.homework
+					homework: formatted.homework,
+					score: formatted.score
 				}
 
 				temp2.push(obj)
