@@ -10,6 +10,14 @@ let cookie = {
 	value: ""
 }
 
+const formatMail = (mail) => {
+	for (let i in mail.attachments) {
+		mail.attachments[i].url = `https://my.e-klase.lv/Attachment/Get/${mail.attachments[i].attachmentId}`
+	}
+
+	return mail
+}
+
 
 /**
  * @author Exerra
@@ -65,6 +73,32 @@ class EklaseWrapper {
 	mail = {
 		getIDs: async () => {
 			return await (await axios.get(`${urls.api}/family/mail/folder-message-ids/standardType_fmft_inbox`, { headers: this.headers })).data
+		},
+		get: async (ids) => {
+			let mails = await (await axios({
+				method: "post",
+				url: `${urls.api}/family/mail/messages`,
+				headers: this.headers,
+				data: {
+					messageIds: ids
+				},
+				maxRedirects: 0
+			}))
+
+			let formattedMails = []
+
+			for (let mail of mails.data) {
+				let formattedMail = await formatMail(mail)
+
+				formattedMails.push(formattedMail)
+			}
+
+			return formattedMails
+		},
+		getAll: async () => {
+			let mailIDs = await this.mail.getIDs()
+
+			return await this.mail.get(mailIDs)
 		}
 	}
 }
