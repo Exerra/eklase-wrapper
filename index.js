@@ -202,10 +202,13 @@ class EklaseWrapper {
 				let formatted = {
 					subject: "",
 					homework: {
-						assignedAt: "",
 						value: "",
 						teacher: "",
-						homework: []
+						dates: {
+							assigned: "",
+							edited: ""
+						},
+						attachments: []
 					}
 				}
 
@@ -220,6 +223,7 @@ class EklaseWrapper {
 					let execArr = regex.exec(homework.find("span").attr("title"))
 
 					let assignedAt = ""
+					let editedAt = ""
 					let teacher = ""
 					let attachments = []
 
@@ -231,6 +235,18 @@ class EklaseWrapper {
 						let isoDate = [oldDate[2], oldDate[1], oldDate[0]].join("-")
 						assignedAt = `${isoDate}T${execArr[2]}:00.000Z`
 						teacher = execArr[3]
+
+						if (teacher.includes("(")) {
+							regex = new RegExp(/(\d{2}\.\d{2}\.\d{4})\. (\d{1,2}\:\d{2})/)
+
+							let execArr2 = regex.exec(teacher.substring(teacher.indexOf("("), teacher.indexOf(")")))
+
+							let editedOldDate = execArr2[1].split('.')
+							let editedIsoDate = [editedOldDate[2], editedOldDate[1], editedOldDate[0]].join("-")
+
+							teacher = teacher.substring(0, teacher.indexOf(" ("))
+							editedAt = `${editedIsoDate}T${execArr2[2]}:00.000Z`
+						}
 					}
 
 					homework.find("a").each(async (yetAnotherIdx, andAnotherEl) => {
@@ -241,9 +257,12 @@ class EklaseWrapper {
 					})
 
 					formatted.homework = {
-						assignedAt: assignedAt,
 						value: homework.find("span").find("p").text().trim(),
 						teacher: teacher,
+						dates: {
+							assigned: assignedAt,
+							edited: editedAt
+						},
 						attachments
 					}
 				}
@@ -255,7 +274,6 @@ class EklaseWrapper {
 				}
 
 				temp2.push(obj)
-				console.log(obj)
 			})
 
 			temp.push(temp2)
