@@ -178,16 +178,6 @@ class EklaseWrapper {
 	async getSchedule() {
 		let diary = await (await axios.get(`${urls.base}/Family/Diary`, { headers: this.headers })).data
 
-		let temp2 = [
-			[
-				{
-					name: "Literatura",
-					subject: "Test",
-					homework: "Thing"
-				}
-			]
-		]
-
 		let temp = []
 
 		const $ = cheerio.load(diary)
