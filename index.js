@@ -63,8 +63,8 @@ class EklaseWrapper {
 	}
 
 	mail = {
-		getIDs: async (organisation) => {
-			return await (await axios.get(`${urls.api}/family/Notifications/Communication/${organisation}`, { headers: headers })).data
+		getIDs: async () => {
+			return await (await axios.get(`${urls.api}/family/mail/folder-message-ids/standardType_fmft_inbox`, { headers: this.headers })).data
 		}
 	}
 }
