@@ -1,4 +1,5 @@
 const axios = require("axios")
+const cheerio = require("cheerio")
 
 let urls = {
 	api: "https://my.e-klase.lv/api",
@@ -99,6 +100,77 @@ class EklaseWrapper {
 			let mailIDs = await this.mail.getIDs()
 
 			return await this.mail.get(mailIDs)
+		}
+	}
+
+	user = {
+		getInfo: async () => {
+			let formattedData = []
+
+			const familyHome = await (await axios.get(`${urls.base}/Family/Home`, { headers: this.headers })).data
+
+			const $ = cheerio.load(familyHome)
+			$(".student-selector", "html").each(async (idx, el) => {
+				let script = $(el).find("script").html().replace(/\n|\t/g, ' ');
+
+				let json = /student_selector_data = (\[.{1,999}\])/.exec(script)[1]
+
+				let data = JSON.parse(json)
+
+				for (let d of data) {
+					let { Name, Description, Id, NotificationCount, ClassId, RedirectUrl, RenderNotifications } = d
+
+					let regex = {
+						description: new RegExp(/([0-9]\..{1,9}), (.{1,999})/)
+					}
+
+					let exec = {
+						description: regex.description.exec(Description)
+					}
+
+					let nameArr = Name.split(" ")
+
+					let surname = nameArr.shift()
+
+
+					let identity = {
+						name: nameArr.join(" "),
+						surname: surname
+					}
+
+					let obj = {
+						identity,
+						class: exec.description[1],
+						school: exec.description[2],
+						id: Id,
+						classID: ClassId,
+						redirectURL: RedirectUrl,
+						renderNotifications: RenderNotifications
+					}
+
+					formattedData.push(obj)
+				}
+			})
+
+			return formattedData
+		},
+
+		settings: {
+			update: {
+				password: async (oldPassword, newPassword) => {
+					return await (await axios({
+						method: "post",
+						url: `${urls.base}/Family/PasswordSettings`,
+						headers: this.headers,
+						data: {
+							CurrentPassword: oldPassword,
+							NewPassword: newPassword,
+							NewPasswordConfirmation: newPassword
+						},
+						maxRedirects: 0
+					})).data
+				}
+			}
 		}
 	}
 }
