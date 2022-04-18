@@ -1,5 +1,6 @@
 const axios = require("axios")
 const cheerio = require("cheerio")
+const {is} = require("cheerio/lib/api/traversing");
 
 let urls = {
 	api: "https://my.e-klase.lv/api",
@@ -194,15 +195,67 @@ class EklaseWrapper {
 			let tbody = $(el).find("tbody")
 			let temp2 = []
 			tbody.find("tr").each(async (idb, el2) => {
-				let subject = $(el2).find(".first-column").find("div").find(".title").text()
+				let name = $(el2).find(".first-column").find("div").find(".title").text().trim()
+				let subject = $(el2).find(".subject")
+				let homework = $(el2).find(".hometask")
 
-				let subjArr = subject.split(" ").filter(e => e !== "").filter(e => e !== "\n")
+				let formatted = {
+					subject: "",
+					homework: {
+						assignedAt: "",
+						value: "",
+						teacher: "",
+						homework: []
+					}
+				}
+
+				if (subject.text().trim() == "") {
+					formatted.subject = subject.text().trim()
+				} else {
+					formatted.subject = subject.find("div").find("p").text().trim()
+				}
+
+				if (homework.text().trim() != "") {
+					let regex = new RegExp(/(\d{2}\.\d{2}\.\d{4})\. (\d{1,2}\:\d{2})\: (.{0,99})/)
+					let execArr = regex.exec(homework.find("span").attr("title"))
+
+					let assignedAt = ""
+					let teacher = ""
+					let attachments = []
+
+					if (execArr == null) {
+						assignedAt = ""
+						teacher = ""
+					} else {
+						let oldDate = execArr[1].split('.')
+						let isoDate = [oldDate[2], oldDate[1], oldDate[0]].join("-")
+						assignedAt = `${isoDate}T${execArr[2]}:00.000Z`
+						teacher = execArr[3]
+					}
+
+					homework.find("a").each(async (yetAnotherIdx, andAnotherEl) => {
+						attachments.push({
+							name: $(andAnotherEl).text(),
+							url: `${urls.base}${$(andAnotherEl).attr("href")}`
+						})
+					})
+
+					formatted.homework = {
+						assignedAt: assignedAt,
+						value: homework.find("span").find("p").text().trim(),
+						teacher: teacher,
+						attachments
+					}
+				}
 
 				let obj = {
-					subject: subjArr.join(" ").replace("\n", "")
+					name,
+					subject: formatted.subject,
+					homework: formatted.homework
 				}
 
 				temp2.push(obj)
+				console.log(obj)
 			})
 
 			temp.push(temp2)
