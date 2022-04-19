@@ -1,4 +1,4 @@
-# eklase-wrapper
+# eklase
 A wrapper for the E-Klase internal API and a scraper for the website.
 
 ![](https://cdn.exerra.xyz/png/eklase-wrapper/thumbnail.png)
