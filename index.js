@@ -28,7 +28,7 @@ class EklaseWrapper {
 	 *
 	 * @param {string} username - Valid E-Klase username
 	 * @param {string} password - Valid E-Klase password
-	 * @see https://dd680d9b.exerra-api-docs.pages.dev/docs/eklase-wrapper/init
+	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
 	 */
 	constructor(username, password) {
 		if (!username || !password) {
@@ -45,7 +45,7 @@ class EklaseWrapper {
 	 *
 	 * @param {boolean} keepAlive - Whether to keep the token alive (if true, code stays alive)
 	 * @returns {Promise<boolean>}
-	 * @see https://dd680d9b.exerra-api-docs.pages.dev/docs/eklase-wrapper/init
+	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
 	 */
 	async initialize(keepAlive = false) {
 		let data = await axios({
