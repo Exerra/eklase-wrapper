@@ -1,6 +1,5 @@
 const axios = require("axios")
 const cheerio = require("cheerio")
-const {is} = require("cheerio/lib/api/traversing");
 
 let urls = {
 	api: "https://my.e-klase.lv/api",

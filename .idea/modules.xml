@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../Servers/e-klase-api/.idea/e-klase-api.iml" filepath="$PROJECT_DIR$/../../Servers/e-klase-api/.idea/e-klase-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/eklase-wrapper.iml" filepath="$PROJECT_DIR$/.idea/eklase-wrapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Websites/DOCUMENTATION/exerra-api-docs/.idea/exerra-api-docs.iml" filepath="$PROJECT_DIR$/../../Websites/DOCUMENTATION/exerra-api-docs/.idea/exerra-api-docs.iml" />
     </modules>
   </component>
 </project>
