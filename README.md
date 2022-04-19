@@ -5,7 +5,7 @@ A wrapper for the E-Klase internal API and a scraper for the website.
 
 ## Installation
 
-Installation is easy! just do `npm i eklase-wrapper` or `yarn add eklase-wrapper` if you use yarn.
+Installation is easy! just do `npm i eklase` or `yarn add eklase` if you use yarn.
 
 ## Documentation
 Documentation for this package is contained in [docs.exerra.xyz/docs/eklase-wrapper/intro](https://docs.exerra.xyz/docs/eklase-wrapper/intro)

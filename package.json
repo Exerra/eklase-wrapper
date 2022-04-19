@@ -1,6 +1,6 @@
 {
 	"name": "eklase",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A wrapper and scraper for E-Klase",
 	"main": "index.js",
 	"keywords": [
