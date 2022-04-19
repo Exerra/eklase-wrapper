@@ -24,6 +24,12 @@ const formatMail = (mail) => {
  * @author Exerra
  */
 class EklaseWrapper {
+	/**
+	 *
+	 * @param {string} username - Valid E-Klase username
+	 * @param {string} password - Valid E-Klase password
+	 * @see https://dd680d9b.exerra-api-docs.pages.dev/docs/eklase-wrapper/init
+	 */
 	constructor(username, password) {
 		if (!username || !password) {
 			throw new Error("No credentials supplied")
@@ -35,6 +41,12 @@ class EklaseWrapper {
 		}
 	}
 
+	/**
+	 *
+	 * @param {boolean} keepAlive - Whether to keep the token alive (if true, code stays alive)
+	 * @returns {Promise<boolean>}
+	 * @see https://dd680d9b.exerra-api-docs.pages.dev/docs/eklase-wrapper/init
+	 */
 	async initialize(keepAlive = false) {
 		let data = await axios({
 			method: "POST",
@@ -71,10 +83,25 @@ class EklaseWrapper {
 		return true
 	}
 
+	/**
+	 * @description Mail functions
+	 */
 	mail = {
+		/**
+		 * @description - Gets all IDs of your inbox
+		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/getids
+		 * @returns {Promise<Object>}
+		 */
 		getIDs: async () => {
 			return await (await axios.get(`${urls.api}/family/mail/folder-message-ids/standardType_fmft_inbox`, { headers: this.headers })).data
 		},
+
+		/**
+		 *
+		 * @param {number[]} ids - IDs of mail to fetch
+		 * @returns {Promise<*[]>}
+		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/get
+		 */
 		get: async (ids) => {
 			let mails = await (await axios({
 				method: "post",
@@ -96,6 +123,12 @@ class EklaseWrapper {
 
 			return formattedMails
 		},
+
+		/**
+		 * @description Get all mail
+		 * @returns {Promise<*[]>}
+		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/getall
+		 */
 		getAll: async () => {
 			let mailIDs = await this.mail.getIDs()
 
@@ -103,7 +136,15 @@ class EklaseWrapper {
 		}
 	}
 
+	/**
+	 * @description User related functions
+	 */
 	user = {
+		/**
+		 * @description Get info about the user
+		 * @returns {Promise<Array.<{identity: Object.<{name: string, surname: string}>, class: string, school: string, id: string, classID: string, redirectURL: string, renderNotifications: boolean}>>}
+		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/getinfo
+		 */
 		getInfo: async () => {
 			let formattedData = []
 
@@ -155,8 +196,21 @@ class EklaseWrapper {
 			return formattedData
 		},
 
+		/**
+		 * @description Settings functions
+		 */
 		settings: {
+			/**
+			 * @description Setting update functions
+			 */
 			update: {
+				/**
+				 * @description Change the password
+				 * @param {string} oldPassword - Current password
+				 * @param {string} newPassword - New password you want
+				 * @returns {Promise<*[]>}
+				 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/settings/password
+				 */
 				password: async (oldPassword, newPassword) => {
 					return await (await axios({
 						method: "post",
@@ -174,6 +228,12 @@ class EklaseWrapper {
 		}
 	}
 
+	/**
+	 *
+	 * @param {string} date - Date in the week you want to fetch. Must be european date format (DD.MM.YYYY)
+	 * @returns {Promise<*[]>}
+	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
+	 */
 	async getSchedule(date = "") {
 		let diary = await (await axios.get(`${urls.base}/Family/Diary${date == "" ? "" : `?Date=${date}`}`, { headers: this.headers })).data
 
