@@ -1,5 +1,5 @@
 {
-	"name": "eklase-wrapper",
+	"name": "eklase",
 	"version": "1.0.0",
 	"description": "A wrapper and scraper for E-Klase",
 	"main": "index.js",
