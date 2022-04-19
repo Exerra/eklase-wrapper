@@ -1,16 +1,28 @@
 {
-  "name": "eklase-wrapper",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Exerra <exerra@exerra.xyz>",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.26.1",
-    "cheerio": "^1.0.0-rc.10"
-  }
+	"name": "eklase-wrapper",
+	"version": "1.0.0",
+	"description": "A wrapper and scraper for E-Klase",
+	"main": "index.js",
+	"keywords": [
+		"node",
+		"eklase",
+		"wrapper"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Exerra/eklase-wrapper.git"
+	},
+	"author": "Exerra <exerra@exerra.xyz> (https://exerra.xyz)",
+	"license": "MIT",
+	"dependencies": {
+		"axios": "^0.26.1",
+		"cheerio": "^1.0.0-rc.10"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/Exerra/eklase-wrapper/issues"
+	},
+	"homepage": "https://docs.exerra.xyz/docs/eklase-wrapper/intro"
 }
