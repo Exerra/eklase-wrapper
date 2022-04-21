@@ -231,7 +231,7 @@ class EklaseWrapper {
 	/**
 	 *
 	 * @param {string} date - Date in the week you want to fetch. Must be european date format (DD.MM.YYYY)
-	 * @returns {Promise<*[]>}
+	 * @returns {Promise<Object[Array.<{name: string, subject: string, homework: Object<{value: string, teacher: string, dates: Object<{assigned: string, edited: string}>}>, score: string, type: string}>]>}
 	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
 	 */
 	async getSchedule(date = "") {
@@ -260,7 +260,8 @@ class EklaseWrapper {
 						},
 						attachments: []
 					},
-					score: ""
+					score: "",
+					type: "lesson"
 				}
 
 				if (subject.text().trim() == "") {
@@ -273,6 +274,10 @@ class EklaseWrapper {
 					formatted.score = score.text().trim()
 				} else {
 					formatted.score = score.find("span").text().trim()
+				}
+
+				if ($(el2).find(".first-column").find("div").find(".number").find(".number--lessonNotInDay").text().trim() == "·") {
+					formatted.type = "note"
 				}
 
 				if (homework.text().trim() != "") {
@@ -328,7 +333,8 @@ class EklaseWrapper {
 					name,
 					subject: formatted.subject,
 					homework: formatted.homework,
-					score: formatted.score
+					score: formatted.score,
+					type: formatted.type
 				}
 
 				temp2.push(obj)
