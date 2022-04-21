@@ -142,12 +142,13 @@ class EklaseWrapper {
 	user = {
 		/**
 		 * @description Get info about the user
-		 * @returns {Promise<Array.<{identity: Object.<{name: string, surname: string}>, class: string, school: string, id: string, classID: string, redirectURL: string, renderNotifications: boolean}>>}
+		 * @returns {Promise<Array.<{identity: Object.<{name: string, surname: string}>, class: string, school: string, id: string, subscription: boolean, classID: string, redirectURL: string, renderNotifications: boolean}>>}
 		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/getinfo
 		 */
 		getInfo: async () => {
 			let formattedData = []
 
+			const subscriptionView = await (await axios.get(`${urls.base}/Family/FamilyPlanInformation`, { headers: this.headers })).data
 			const familyHome = await (await axios.get(`${urls.base}/Family/Home`, { headers: this.headers })).data
 
 			const $ = cheerio.load(familyHome)
@@ -178,8 +179,6 @@ class EklaseWrapper {
 						name: nameArr.join(" "),
 						surname: surname
 					}
-
-					const subscriptionView = await (await axios.get(`${urls.base}/Family/FamilyPlanInformation`, { headers: this.headers })).data
 					let subscription = false
 
 					const scraper = cheerio.load(subscriptionView)
@@ -203,6 +202,57 @@ class EklaseWrapper {
 			})
 
 			return formattedData
+		},
+
+		getGrades: async () => {
+			let userInfo = await this.user.getInfo()
+			let temp = []
+
+			if (!userInfo[0].subscription) throw new Error("You need a family subscription to access this")
+
+			const familyHome = await (await axios.get(`${urls.base}/Family/Home`, { headers: this.headers })).data
+			const $ = cheerio.load(familyHome)
+			$(".recent-scores-item.open-mark-file").each(async (idx, el) => {
+				let temp2 = {
+					lesson: "",
+					type: "",
+					score: {
+						value: 0,
+						type: "grade"
+					}
+				}
+				$(el).find(".recent-scores-item-col").each(async (idx2, el2) => {
+					let subject = $(el2).find("h4").text().trim()
+					let score = $(el2).find(".score").text().trim()
+
+					if (subject != "") temp2.lesson = subject
+
+					if (score != "") {
+						let checkIfPercentage = /\d{1,3}%/.exec(score)
+						temp2.score.value = parseInt(score)
+						if (checkIfPercentage == null) return
+						temp2.score.type = "percentage"
+					}
+
+					if ($(el2).find(".recent-scores-item-has-test").text().trim() != "") {
+						switch ($(el2).find("span").first().text().trim()) {
+							case "Pārbaudes darbs":
+								temp2.type = "test"
+								break
+							case "Mācību stunda":
+								temp2.type = "learningLesson"
+								break
+							default:
+								temp2.type = $(el2).find("span").first().text().trim()
+								break
+						}
+					}
+				})
+
+				temp.push(temp2)
+			})
+
+			return temp
 		},
 
 		/**
