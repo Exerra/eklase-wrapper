@@ -8,6 +8,9 @@
 		"eklase",
 		"wrapper"
 	],
+	"scripts": {
+		"test": "jest --watchAll --verbose --coverage"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Exerra/eklase-wrapper.git"
@@ -24,5 +27,9 @@
 	"bugs": {
 		"url": "https://github.com/Exerra/eklase-wrapper/issues"
 	},
-	"homepage": "https://docs.exerra.xyz/docs/eklase-wrapper/intro"
+	"homepage": "https://docs.exerra.xyz/docs/eklase-wrapper/intro",
+	"devDependencies": {
+		"dotenv": "^16.0.0",
+		"jest": "^27.5.1"
+	}
 }
