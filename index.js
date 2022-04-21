@@ -179,11 +179,20 @@ class EklaseWrapper {
 						surname: surname
 					}
 
+					const subscriptionView = await (await axios.get(`${urls.base}/Family/FamilyPlanInformation`, { headers: this.headers })).data
+					let subscription = false
+
+					const scraper = cheerio.load(subscriptionView)
+					scraper(".col-md-3.text-center", "html").each(async (idxagain, elagain) => {
+						if ($(elagain).find("a").html() == null) subscription = true
+					})
+
 					let obj = {
 						identity,
 						class: exec.description[1],
 						school: exec.description[2],
 						id: Id,
+						subscription,
 						classID: ClassId,
 						redirectURL: RedirectUrl,
 						renderNotifications: RenderNotifications
