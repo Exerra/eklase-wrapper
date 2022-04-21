@@ -208,6 +208,7 @@ class EklaseWrapper {
 		 * @description - Get recent grades. Needs a family subscription
 		 * @returns {Promise<Array.<{lesson: string, type: string, score: Object<{value: number, type: string}>}>>}
 		 * @since 1.1.0
+		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/getgrades
 		 */
 		getGrades: async () => {
 			let userInfo = await this.user.getInfo()
