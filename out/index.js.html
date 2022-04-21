@@ -1,4 +1,32 @@
-const axios = require("axios")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require("axios")
 const cheerio = require("cheerio")
 
 let urls = {
@@ -44,7 +72,7 @@ class EklaseWrapper {
 	/**
 	 *
 	 * @param {boolean} keepAlive - Whether to keep the token alive (if true, code stays alive)
-	 * @returns {Promise<boolean>}
+	 * @returns {Promise&lt;boolean>}
 	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
 	 */
 	async initialize(keepAlive = false) {
@@ -64,7 +92,7 @@ class EklaseWrapper {
 			}),
 			maxRedirects: 0,
 			validateStatus: status => {
-				return status < 500
+				return status &lt; 500
 			}
 		})
 
@@ -90,7 +118,7 @@ class EklaseWrapper {
 		/**
 		 * @description - Gets all IDs of your inbox
 		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/getids
-		 * @returns {Promise<Object>}
+		 * @returns {Promise&lt;Object>}
 		 */
 		getIDs: async () => {
 			return await (await axios.get(`${urls.api}/family/mail/folder-message-ids/standardType_fmft_inbox`, { headers: this.headers })).data
@@ -99,7 +127,7 @@ class EklaseWrapper {
 		/**
 		 *
 		 * @param {number[]} ids - IDs of mail to fetch
-		 * @returns {Promise<Array<any>>}
+		 * @returns {Promise&lt;Array&lt;any>>}
 		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/get
 		 */
 		get: async (ids) => {
@@ -126,7 +154,7 @@ class EklaseWrapper {
 
 		/**
 		 * @description Get all mail
-		 * @returns {Promise<Array<any>>}
+		 * @returns {Promise&lt;Array&lt;any>>}
 		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/mail/getall
 		 */
 		getAll: async () => {
@@ -142,7 +170,7 @@ class EklaseWrapper {
 	user = {
 		/**
 		 * @description Get info about the user
-		 * @returns {Promise<Array.<{identity: Object.<{name: string, surname: string}>, class: string, school: string, id: string, subscription: boolean, classID: string, redirectURL: string, renderNotifications: boolean}>>}
+		 * @returns {Promise&lt;Array.&lt;{identity: Object.&lt;{name: string, surname: string}>, class: string, school: string, id: string, subscription: boolean, classID: string, redirectURL: string, renderNotifications: boolean}>>}
 		 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/getinfo
 		 */
 		getInfo: async () => {
@@ -206,7 +234,7 @@ class EklaseWrapper {
 
 		/**
 		 * @description - Get recent grades. Needs a family subscription
-		 * @returns {Promise<Array.<{lesson: string, type: string, score: Object<{value: number, type: string}>}>>}
+		 * @returns {Promise&lt;Array.&lt;{lesson: string, type: string, score: Object&lt;{value: number, type: string}>}>>}
 		 * @since 1.1.0
 		 */
 		getGrades: async () => {
@@ -272,7 +300,7 @@ class EklaseWrapper {
 				 * @description Change the password
 				 * @param {string} oldPassword - Current password
 				 * @param {string} newPassword - New password you want
-				 * @returns {Promise<Array<any>>}
+				 * @returns {Promise&lt;Array&lt;any>>}
 				 * @see https://docs.exerra.xyz/docs/eklase-wrapper/user/settings/password
 				 */
 				password: async (oldPassword, newPassword) => {
@@ -295,7 +323,7 @@ class EklaseWrapper {
 	/**
 	 *
 	 * @param {string} date - Date in the week you want to fetch. Must be european date format (DD.MM.YYYY)
-	 * @returns {Promise<Object[Array.<{name: string, subject: string, homework: Object<{value: string, teacher: string, dates: Object<{assigned: string, edited: string}>}>, score: string, type: string}>]>}
+	 * @returns {Promise&lt;Array.&lt;[Array.&lt;{name: string, subject: string, homework: Object&lt;{value: string, teacher: string, dates: Object&lt;{assigned: string, edited: string}>}>, score: string, type: string}>]>>}
 	 * @see https://docs.exerra.xyz/docs/eklase-wrapper/schedule
 	 */
 	async getSchedule(date = "") {
@@ -411,4 +439,26 @@ class EklaseWrapper {
 	}
 }
 
-module.exports = EklaseWrapper
+module.exports = EklaseWrapper</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="EklaseWrapper.html">EklaseWrapper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#get">get</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getGrades">getGrades</a></li><li><a href="global.html#getIDs">getIDs</a></li><li><a href="global.html#getInfo">getInfo</a></li><li><a href="global.html#settings">settings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Apr 21 2022 17:05:47 GMT+0300 (Eastern European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
