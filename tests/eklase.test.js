@@ -19,9 +19,8 @@ expect.extend({
 	},
 	/**
 	 * @typedef {jest.Expect} expect
-	 * @param received
-	 * @param value - Which key to look for
-	 * @param type - boolean, number, object
+	 * @param {string} value - Which key to look for
+	 * @param {string} type - boolean, number, object
 	 * @returns {{pass: boolean, message: (function(): string)}}
 	 */
 	haveKey(received, value, type) {
