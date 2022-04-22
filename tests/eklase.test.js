@@ -3,6 +3,11 @@ const util = require("util")
 require("dotenv").config()
 
 expect.extend({
+	/**
+	 * @typedef {jest.Expect} expect
+	 * @param type - boolean, number, object
+	 * @returns {{pass: boolean, message: (function(): string)}|{pass: boolean, message: (function(): string)}}
+	 */
 	toBeType(received, type) {
 		return typeof received === type ? {
 			message: () => `expected ${received} to be ${type}`,
@@ -12,6 +17,13 @@ expect.extend({
 			pass: false
 		};
 	},
+	/**
+	 * @typedef {jest.Expect} expect
+	 * @param received
+	 * @param value - Which key to look for
+	 * @param type - boolean, number, object
+	 * @returns {{pass: boolean, message: (function(): string)}}
+	 */
 	haveKey(received, value, type) {
 		try {
 			expect(received).toHaveProperty(value)
