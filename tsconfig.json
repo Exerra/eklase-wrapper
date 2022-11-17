@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "baseUrl": ".",
+        "module": "commonjs",
+        "declaration": true,
+        "rootDir": "src",
+        "outDir": "lib",
+        "strict": true,
+        "lib": [
+            "dom",
+            "es2015.core",
+            "DOM.Iterable",
+            "ES2019"
+        ]
+    },
+    "exclude": ["node_modules"],
+    "include": ["src"]
+}

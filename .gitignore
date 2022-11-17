@@ -3,3 +3,4 @@ test/
 testing.js
 .env
 coverage
+lib/
