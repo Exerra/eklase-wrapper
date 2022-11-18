@@ -1,15 +1,18 @@
 {
 	"name": "eklase",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"description": "A wrapper and scraper for E-Klase",
-	"main": "index.js",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
 	"keywords": [
 		"node",
 		"eklase",
 		"wrapper"
 	],
 	"scripts": {
-		"test": "jest --watchAll --verbose --coverage"
+		"test": "npm run build && jest --watchAll --verbose --coverage",
+		"build": "tsc",
+		"prepare": "npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -27,9 +30,15 @@
 	"bugs": {
 		"url": "https://github.com/Exerra/eklase-wrapper/issues"
 	},
-	"homepage": "https://docs.exerra.xyz/docs/eklase-wrapper/intro",
+	"homepage": "docs/npm-packages/eklase/v2.x.x/intro",
+	"files": [
+		"lib/**/*"
+	],
 	"devDependencies": {
+		"@types/cheerio": "^0.22.31",
+		"@types/node": "^18.11.9",
 		"dotenv": "^16.0.0",
-		"jest": "^27.5.1"
+		"jest": "^27.5.1",
+		"typescript": "^4.9.3"
 	}
 }

@@ -8,7 +8,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="e-klase-api" />
     <orderEntry type="module" module-name="exerra-api-docs" />
   </component>
 </module>
