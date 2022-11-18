@@ -4,6 +4,7 @@ import eklaseReq from "./util/requests";
 import urls from "./util/urls";
 import { Mail } from "./types/mail";
 import { formatMail } from "./util/mail";
+// @ts-ignore
 import * as cheerio from "cheerio"
 
 /*
@@ -68,8 +69,11 @@ export default class EKlase {
 
 			let temp: any[] = []
 
+			// @ts-ignore
 			const $ = cheerio.load(diary)
+			// @ts-ignore
 			$(".lessons-table", "html").each(async (idx, el) => {
+				// @ts-ignore
 				let tbody = $(el).find("tbody")
 				let temp2: any = []
 
@@ -141,6 +145,7 @@ export default class EKlase {
 							}
 						}
 
+						// @ts-ignore
 						homework.find("a").each(async (yetAnotherIdx, andAnotherEl) => {
 							attachments.push({
 								name: $(andAnotherEl).text(),
