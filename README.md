@@ -13,4 +13,4 @@ const wrapper = new EKlase("username", "password")
 Installation is easy! just do `npm i eklase` or `yarn add eklase` if you use yarn.
 
 ## Documentation
-Documentation for this package is contained in [docs.exerra.xyz/docs/eklase-wrapper/intro](https://docs.exerra.xyz/docs/eklase-wrapper/intro)
+Documentation for this package is contained in [the docs](https://docs.exerra.xyz/docs/npm-packages/eklase/v2.x.x/intro)
