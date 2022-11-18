@@ -1,7 +1,12 @@
 # eklase
 A wrapper for the E-Klase internal API and a scraper for the website.
 
-![](https://cdn.exerra.xyz/png/eklase-wrapper/thumbnail.png)
+```js
+const EKlase = require("eklase") // CommonJS
+import EKlase from "eklase" // Typescript & ES6
+
+const wrapper = new EKlase("username", "password")
+```
 
 ## Installation
 
