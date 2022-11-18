@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/eklase-wrapper.iml" filepath="$PROJECT_DIR$/.idea/eklase-wrapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Websites/DOCUMENTATION/exerra-api-docs/.idea/exerra-api-docs.iml" filepath="$PROJECT_DIR$/../../Websites/DOCUMENTATION/exerra-api-docs/.idea/exerra-api-docs.iml" />
     </modules>
   </component>
 </project>

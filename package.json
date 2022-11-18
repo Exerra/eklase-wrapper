@@ -1,6 +1,6 @@
 {
 	"name": "eklase",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"description": "A wrapper and scraper for E-Klase",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -30,7 +30,7 @@
 	"bugs": {
 		"url": "https://github.com/Exerra/eklase-wrapper/issues"
 	},
-	"homepage": "https://docs.exerra.xyz/docs/eklase-wrapper/intro",
+	"homepage": "docs/npm-packages/eklase/v2.x.x/intro",
 	"files": [
 		"lib/**/*"
 	],
